@@ -1,0 +1,7 @@
+Dockerfile
+.*ignore
+.cache
+dist
+package-lock.json
+*.conf
+*.sh

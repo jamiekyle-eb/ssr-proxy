@@ -1,0 +1,19 @@
+version: "3"
+services:
+  proxy:
+    image: ssr-proxy
+    privileged: true
+    ports:
+      - "8000:8000"
+    links:
+      - backend
+    networks:
+      - backend
+  backend:
+    image: ssr-proxy-example
+    ports:
+      - "8080:80"
+    networks:
+      - backend
+networks:
+  backend: {}
