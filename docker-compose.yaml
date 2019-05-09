@@ -1,18 +1,25 @@
 version: "3"
 services:
   proxy:
-    image: ssr-proxy
-    privileged: true
+    build: ./proxy
+    privileged: true # for chrome
     ports:
-      - "8000:8000"
+      - "4000:80"
+    links:
+      - backend
+      - renderer
+    networks:
+      - backend
+    restart: always
+  renderer:
+    build: ./renderer
+    privileged: true # for chrome
     links:
       - backend
     networks:
       - backend
   backend:
-    image: ssr-proxy-example
-    ports:
-      - "8080:80"
+    build: ./example
     networks:
       - backend
 networks:

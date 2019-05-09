@@ -9,6 +9,6 @@ ENV NODE_ENV=production
 RUN npm run -s build
 
 # Stage 2: Runner
-FROM nginx:1.15.9
+FROM nginx:1.16.0-alpine
 COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /workdir/dist/ /usr/share/nginx/html

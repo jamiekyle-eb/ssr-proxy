@@ -1,14 +1,6 @@
 {
 	"scripts": {
-		"format": "prettier --write '**'",
-		"start": "node index.js"
-	},
-	"dependencies": {
-		"express": "^4.16.4",
-		"express-http-proxy": "^1.5.1",
-		"isbot": "^2.2.1",
-		"morgan": "^1.9.1",
-		"puppeteer": "^1.15.0"
+		"format": "prettier --write '**'"
 	},
 	"devDependencies": {
 		"husky": "^2.2.0",
