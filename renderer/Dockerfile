@@ -24,4 +24,5 @@ COPY package-lock.json .
 ENV NODE_ENV=production
 RUN npm install && test -d node_modules
 COPY index.js .
-CMD [ "npm", "run", "-s", "start" ]
+EXPOSE 8000
+ENTRYPOINT [ "node", "index.js" ]
