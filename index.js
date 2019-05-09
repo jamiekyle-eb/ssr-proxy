@@ -13,6 +13,8 @@ let browserOpts = {
 	args: ["--disable-web-security"],
 }
 
+let ALLOWED_REQUEST_TYPES = ["document", "script", "xhr", "fetch"]
+
 function shouldSSR(req) {
 	if (req.query.ssr === "false") return false
 	if (isbot(req.headers["user-agent"])) return true
@@ -23,6 +25,17 @@ function shouldSSR(req) {
 async function ssr() {
 	let browser = await puppeteer.launch(browserOpts)
 	let page = await browser.newPage()
+
+	await page.setRequestInterception(true)
+
+	page.on("request", req => {
+		if (ALLOWED_REQUEST_TYPES.includes(req.resourceType())) {
+			req.continue()
+		} else {
+			req.abort()
+		}
+	})
+
 	return async function handler(req, res, next) {
 		if (shouldSSR(req)) {
 			await page.goto(BACKEND + req.path)
